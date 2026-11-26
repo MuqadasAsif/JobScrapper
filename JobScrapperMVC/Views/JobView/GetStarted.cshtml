@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<JobScrapperMVC.Domain.DataClass>
+<div class="brand-container-main">
+    <img src="~/Images/jobLogo.jpg" alt="lOGO" class="logo-img" />
+    <h3>NextHire</h3>
+        <ul class="List">
+        <li>
+            <a asp-controller="JobView" asp-action="Index">Home</a>
+        </li>
+            <li>About US</li>
+            <li>Contact US</li>
+            <li>Sevices</li>
+        </ul>
+</div>
+<br />
+<br />
+<h1> Welcome!</h1>
+<br />
+<br />
+<form asp-controller="JobView" asp-action="FindJobs" method="get">
+<div class="main_container">
+
+    <div class="sub1">
+        <h4 class="title">Title</h4>
+            <select name="title" class="titlefield">
+                <option value="">Select Job Title</option>
+                <option value="Software Engineer">Software Engineer</option> c
+                <option value="Software Developer">Software Developer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="Frontend Developer">Frontend Developer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Mobile App Developer">Mobile App Developer</option>
+                <option value="iOS Developer">iOS Developer</option>
+                <option value="Android Developer">Android Developer</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                <option value="AI Engineer">AI Engineer</option>
+                <option value="DevOps Engineer">DevOps Engineer</option>
+                <option value="Cloud Engineer">Cloud Engineer</option>
+                <option value="QA Engineer">QA Engineer</option>
+                <option value="Cyber Security Engineer">Cyber Security Engineer</option>
+                <option value="UI/UX Designer">UI/UX Designer</option>
+                <option value="Database Administrator">Database Administrator</option>
+                <option value="System Administrator">System Administrator</option>
+            </select>
+    </div>
+    <div class="sub2">
+        <h4 class="location">Location</h4>
+            <select name="location" class="locationfield">
+                <option value="">Select Location</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+                <option value="Italy">Italy</option>
+                <option value="Russia">Russia</option>
+            </select>
+    </div>
+    <div class="sub3">
+        <h4 class="pages">Pages</h4>
+            <input type="number" name="pages" placeholder="Enter the Pages" class="pagesfield" />
+    </div>
+    <div class=" sub4">
+            <h4 class="PostDate">Date</h4>
+            <input type="date" name="PostDate" placeholder="Enter the Date" class="datefield" />
+    </div>
+    <button type = "submit" class="search_button">
+        Search
+    </button>
+</div>
+</form>
+
+<br/>
+@if (ViewBag.warning != null)
+{
+    <p style="color: #021A54; text-align: center; margin: 0 0 18px; font-size: 0.85rem; font-weight:bold;">@ViewBag.warning</p>
+}
+@if (Model != null && Model.Any())
+{
+
+    <h2>Search Results</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Location</th>
+                <th>Posted Date</th>
+                <th>Job Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>@job.Title</td>
+                    <td>@job.Company</td>
+                    <td>@job.Location</td>
+                    <td>@job.PostedDate</td>
+                    <td><a href="@job.JobUrl" target="_blank">View Job</a></td>
+                </tr>
+            }
+          
+        </tbody>
+
+    </table>
+    <a asp-controller="JobView" asp-action="ExportToExcel" class="open_button" onclick="DownloadAlert()"> Click to open the list in Excel</a>
+        <div class="toast" id="downloadToast">
+    File downloaded successfully!
+</div>
+    <!-- Pagination -->
+
+    <div class="pagination">
+        <h4>Pages</h4>
+        <div class="page-links">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <a asp-controller="JobView"
+                   asp-action="FindJobs"
+                   asp-route-Title="@Context.Request.Query["Title"]"
+                   asp-route-location="@Context.Request.Query["location"]"
+                   asp-route-pages="@Context.Request.Query["pages"]"
+                   asp-route-PostDate="@Context.Request.Query["PostDate"]"
+                   asp-route-page="@i">
+                    @i
+                </a>
+            }
+        </div>
+    </div>
+
+}

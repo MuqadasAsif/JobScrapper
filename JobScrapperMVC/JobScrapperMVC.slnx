@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../JobScrapperMVC.Application.Create/JobScrapperMVC.Application.Create.csproj" Id="886a5ac2-97b2-4a97-a003-f275e46fdc19" />
+  <Project Path="../JobScrapperMVC.Domain/JobScrapperMVC.Domain.csproj" Id="08584822-5d4e-4ee2-8624-1974acebf378" />
+  <Project Path="../JobScrapperMVC.Infrastructure.Create/JobScrapperMVC.Infrastructure.Create.csproj" Id="e9de595c-ecf0-4a29-a6a2-e3f81a7a68fd" />
+  <Project Path="JobScrapperMVC.csproj" />
+</Solution>
